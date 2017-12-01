@@ -10,7 +10,7 @@ puzzles.add_puzzle(1, day_1_1)
 
 def day_1_2(x):
     lx = len(x)
-    return sum([int(x[i]) for i in range(lx) if x[i] == x[(i+lx//2)%lx]])
+    return sum([int(x[i]) for i in range(lx) if x[i] == x[i-lx//2]])
 puzzles.add_puzzle(1, day_1_2)
 
 puzzles.run_and_score()
