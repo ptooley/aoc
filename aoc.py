@@ -65,7 +65,19 @@ class aoccollection(object):
 
         self.puzzles.setdefault(day, []).append(puzzle)
 
-    def run_and_score(self):
+    def run(self):
+        """Run all puzzles using personalised input, printing results"""
+
+        for day, puzzles in self.puzzles.items():
+            dayinp = get_input(day, self.cookie)
+            print("Day {}:".format(day))
+            for puzzlenum, puzzle in enumerate(puzzles):
+                res = puzzle(dayinp)
+                print("\tPuzzle {}, Result: {}"
+                      "".format(day, puzzlenum, res))
+
+
+def run_and_score(self):
         """Run all puzzles using personalised input, giving results and code
         golf score.
         """
