@@ -1,3 +1,4 @@
+from collections import OrderedDict
 import requests
 import inspect
 
@@ -43,4 +44,41 @@ def score(func):
     lines = inspect.getsourcelines(func)[0]
     chars = "".join(lines[1:])
     return -len(chars)
-    
+
+class aoccollection(object):
+    """Handles running and scoring a set of AOC puzzle solving functions"""
+
+    def __init__(self, cookie):
+        """Create object and set session cookie data"""
+        self.puzzles = OrderedDict()
+        self.cookie = cookie
+
+    def add_puzzle(self, day, puzzle):
+        """Add puzzles, assumed added in order"""
+        try:
+            day = int(day)
+        except:
+            raise ValueError("day must be a number")
+
+        if day < 1 or day > 25:
+            raise ValueError("day must be in the range 0 < day < 26")
+
+        self.puzzles.setdefault(day, []).append(puzzle)
+
+    def run_and_score(self):
+        """Run all puzzles using personalised input, giving results and code
+        golf score.
+        """
+        totsc = 0
+        for day, puzzles in self.puzzles.items():
+            dayinp = get_input(day, self.cookie)
+            print("Day {}:".format(day))
+            for puzzlenum, puzzle in enumerate(puzzles):
+                res = puzzle(dayinp)
+                psc = score(puzzle)
+                totsc += psc
+                print("\tPuzzle {}, Result: {}, Score: {}"
+                      "".format(day, puzzlenum, res, psc))
+            print("")
+
+        print("\nTotal Score: {}".format(totsc))
