@@ -77,7 +77,7 @@ class aoccollection(object):
                       "".format(day, puzzlenum, res))
 
 
-def run_and_score(self):
+    def run_and_score(self):
         """Run all puzzles using personalised input, giving results and code
         golf score.
         """
@@ -87,10 +87,10 @@ def run_and_score(self):
             print("Day {}:".format(day))
             for puzzlenum, puzzle in enumerate(puzzles):
                 res = puzzle(dayinp)
-                psc = score(puzzle)
+                psc = score(puzzle) + 7 #return statement + space
                 totsc += psc
                 print("\tPuzzle {}, Result: {}, Score: {}"
-                      "".format(day, puzzlenum, res, psc))
+                      "".format(puzzlenum+1, res, psc))
             print("")
 
         print("\nTotal Score: {}".format(totsc))
